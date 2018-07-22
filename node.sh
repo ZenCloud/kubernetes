@@ -63,7 +63,7 @@ all "echo 'gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg' >> /etc
 all "echo '       https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg' >> /etc/yum.repos.d/kubernetes.repo"
 
 all "yum update -y"
-all "yum install -y kubeadm docker git vim sudo wget"
+all "yum install -y kubeadm docker vim sudo curl"
 
 # Docker + Kubernetes setup #
 # ###### # ########## ##### #
