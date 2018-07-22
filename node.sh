@@ -91,3 +91,6 @@ manager "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.
 sleep 10
 
 manager "kubectl get nodes"
+
+mkdir -p ~/.kube
+manager "cat /root/.kube/config" > ~/.kube/config
