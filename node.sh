@@ -32,7 +32,7 @@ function log {
 log "Create and setup user ssh access"
 
 # TODO: Make user configurable.
-all "useradd ilix"
+all "if [ $(id -u ilix > /dev/null 2>&1; echo $?) -eq 1 ]; then useradd ilix; fi"
 all "mkdir /home/ilix/.ssh"
 all "echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1syof3mPdm0ud5AdUF6+NYxAVmnZWCO7FN9XjRtkV5WayZJ1HfRoqBK3sdQZ14Q07Mb0eZ/1aWxBsvxkWGgGfXh5PTgsiy4dyNEn7PTf8IZ0qXaykxvqGaq8QzLozUJDEH88B3jJe5cMf+LjL6xN8g1wy926nwaRUzdbZpmPa/yKvJWedC2q4qpSS22wE8XN0XiXdLLSV/DQ6ifRRQ+hEU6AjQH3St+ChYpii93pgqLBp6Fuj4NH9Zmt3fL2TylO+/+go5gmZYPGjoh0oXfhjL+zLPNFK3RB/GFKVf/L3uT1tuS1uM5khXRDq3pW32tf5IQ1D6ct6kB6PjFrJNJZL ilix@undying' > /home/ilix/.ssh/authorized_keys"
 all "chown -R ilix:ilix /home/ilix/.ssh"
