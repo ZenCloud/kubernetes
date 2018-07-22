@@ -75,7 +75,7 @@ all "systemctl start docker && systemctl start kubelet"
 # ####### ##### #
 
 all "kubeadm reset -f"
-manager "kubeadm init"
+manager "kubeadm init --pod-network-cidr=10.244.0.0/16"
 
 manager "mkdir -p /root/.kube"
 manager "rm -f /root/.kube/config"
