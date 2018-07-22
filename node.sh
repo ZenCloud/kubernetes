@@ -35,7 +35,7 @@ function manager {
 # Run a command on a single node.
 function single {
   echo "~# ssh $1" "$2"
-  ssh $1 "$2"
+  ssh -oStrictHostKeyChecking=no $1 "$2"
 }
 
 # User setup #
