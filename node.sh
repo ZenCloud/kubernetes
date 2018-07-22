@@ -1,6 +1,11 @@
 #!/bin/bash
 
+# Configuration #
+# ############# #
+
 USER="ilix"
+MANAGER_NODE=""
+
 # Support functions #
 # ####### ######### #
 
@@ -40,7 +45,6 @@ all "useradd $USER"
 all "mkdir /home/$USER/.ssh"
 all "cp /root/.ssh/authorized_keys /home/$USER/.ssh/authorized_keys"
 all "chown -R $USER:$USER /home/$USER/.ssh"
-all "chown -R ilix:ilix /home/ilix/.ssh"
 
 all "groupadd docker"
 all "gpasswd -a $USER wheel"
