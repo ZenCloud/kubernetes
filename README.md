@@ -1,5 +1,13 @@
 # kubernetes
 
+## Pre-conditions
+
+- You need four nodes setup with CentOS ~7.
+- You need ssh access as root.
+- Normal username is currently hard coded in the setup script.
+- Node ssh aliases are currently hard coded in the setup script.
+- Read and understand each step in the script(s) here before you run them.
+
 ## Step 1
 
 Add your node(s) to ~/.ssh config
@@ -25,4 +33,24 @@ Host zc-compute-3
  IdentityFile ~/.ssh/id_rsa
  IdentitiesOnly yes
 
+```
+
+## Step 2
+
+Run `node.sh` to setup the kubernetes cluster.
+
+```
+sh node.sh
+```
+
+Once the script is finished you will se the output of `kubectl get nodes`.
+
+Example:
+```
+~# ssh zc-manager kubectl get nodes
+NAME                  STATUS    ROLES     AGE       VERSION
+containership-zc-01   Ready     master    37s       v1.11.1
+containership-zc-02   Ready     <none>    23s       v1.11.1
+containership-zc-03   Ready     <none>    19s       v1.11.1
+containership-zc-04   Ready     <none>    15s       v1.11.1
 ```
