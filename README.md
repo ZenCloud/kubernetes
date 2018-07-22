@@ -63,4 +63,5 @@ Deploy Traefik.
 ```bash
 kubectl apply -f traefik-rbac.yml
 kubectl apply -f traefik-ds.yml
+kubectl apply -f traefik-ui.yml
 ```
