@@ -4,9 +4,8 @@
 
 - You need four nodes setup with CentOS ~7.
 - You need ssh access as root.
-- Normal username is currently hard coded in the setup script.
 - Node ssh aliases are currently hard coded in the setup script.
-- Read and understand each step in the script(s) here before you run them.
+- Read and understand each step in the script(s) here before you run them!
 
 ## Step 1
 
@@ -36,6 +35,12 @@ Host zc-compute-3
 ```
 
 ## Step 2
+
+Edit `node.sh` and review the **Configuration** section.
+
+```bash
+vim node.sh
+```
 
 Run `node.sh` to setup the kubernetes cluster.
 

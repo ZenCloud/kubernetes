@@ -79,23 +79,30 @@ all "systemctl start docker && systemctl start kubelet"
 # Manager setup #
 # ####### ##### #
 
+# Init cluster
 manager "kubeadm init --pod-network-cidr=10.244.0.0/16"
 
+# Copy admin.conf for root
 manager "mkdir -p /root/.kube"
-manager "rm -f /root/.kube/config"
-manager "cp -f /etc/kubernetes/admin.conf /root/.kube/config"
-manager "chown $(id -u):$(id -g) /root/.kube/config"
+manager "cp /etc/kubernetes/admin.conf /root/.kube/config"
 
+# Copy admin.conf for $USER
+manager "mkdir -p /home/$USER/.kube"
+manager "cp /etc/kubernetes/admin.conf /home/$USER/.kube/config"
+manager "chown $USER:$USER /home/$USER/.kube/config"
+
+# Join compute nodes to cluster
 manager "kubeadm token create --print-join-command"
-
 compute "$LATEST_MANAGER_RESULT"
 
+# Enable Flannel network
 manager "kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml"
 
-sleep 10
-
+# Copy kube config to local machine
 mkdir -p ~/.kube
 KUBE_CONFIG=`ssh zc-manager cat /root/.kube/config`
 echo -e $"$KUBE_CONFIG" > ~/.kube/config
 
+# List nodes to see that everything is working
+sleep 20
 kubectl get nodes
