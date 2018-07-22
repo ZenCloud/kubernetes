@@ -58,17 +58,9 @@ all "sed -i --follow-symlinks 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysc
 all "echo 'net.bridge.bridge-nf-call-ip6tables = 1' > /etc/sysctl.conf"
 all "echo 'net.bridge.bridge-nf-call-iptables = 1' >> /etc/sysctl.conf"
 
-all "echo '[kubernetes]' > /etc/yum.repos.d/kubernetes.repo"
-all "echo 'name=Kubernetes' >> /etc/yum.repos.d/kubernetes.repo"
-all "echo 'baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64' >> /etc/yum.repos.d/kubernetes.repo"
-all "echo 'enabled=1' >> /etc/yum.repos.d/kubernetes.repo"
-all "echo 'gpgcheck=1' >> /etc/yum.repos.d/kubernetes.repo"
-all "echo 'repo_gpgcheck=1' >> /etc/yum.repos.d/kubernetes.repo"
-all "echo 'gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg' >> /etc/yum.repos.d/kubernetes.repo"
-all "echo '       https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg' >> /etc/yum.repos.d/kubernetes.repo"
+all "echo -e '[kubernetes]\nname=Kubernetes\nbaseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64\nenabled=1\ngpgcheck=1\nrepo_gpgcheck=1\ngpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg\n       https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg' > /etc/yum.repos.d/kubernetes.repo"
 
-all "yum update -y"
-all "yum install -y kubeadm docker vim sudo curl"
+all "yum update -y && yum install -y kubeadm docker vim sudo curl"
 
 # Docker + Kubernetes setup #
 # ###### # ########## ##### #
