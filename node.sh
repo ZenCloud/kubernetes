@@ -45,6 +45,7 @@ function single {
 
 for node in "${ALL_NODES[@]}"
 do
+  single "$node" "hostname $node"
   single "$node" "echo '$node' > /etc/hostname"
 done
 
