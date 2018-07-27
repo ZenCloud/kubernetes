@@ -2,37 +2,13 @@
 
 ## Pre-conditions
 
-- You need four nodes setup with CentOS ~7.
+- You need two or more nodes setup with CentOS 7.x.
 - You need ssh access as root.
-- Node ssh aliases are currently hard coded in the setup script.
 - Read and understand each step in the script(s) here before you run them!
 
 ## Step 1
 
-Add your node(s) to ~/.ssh config
-
-```config
-Host zc-manager
- Hostname 10.13.37.10
- IdentityFile ~/.ssh/id_rsa
- IdentitiesOnly yes
-
-Host zc-compute-1
- Hostname 10.13.37.21
- IdentityFile ~/.ssh/id_rsa
- IdentitiesOnly yes
-
-Host zc-compute-2
- Hostname 10.13.37.22
- IdentityFile ~/.ssh/id_rsa
- IdentitiesOnly yes
-
-Host zc-compute-3
- Hostname 10.13.37.23
- IdentityFile ~/.ssh/id_rsa
- IdentitiesOnly yes
-
-```
+- Setup a DNS name pointing to each node.
 
 ## Step 2
 

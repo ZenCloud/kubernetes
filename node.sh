@@ -4,7 +4,9 @@
 # ############# #
 
 USER="ilix"
-MANAGER_NODE=""
+MANAGER_NODE="mngr-1.k8s.zencloud.se"
+COMPUTE_NODES=( "cmpt-1.k8s.zencloud.se" "cmpt-2.k8s.zencloud.se" "cmpt-3.k8s.zencloud.se" )
+ALL_NODES=( "cmpt-1.k8s.zencloud.se" "cmpt-2.k8s.zencloud.se" "cmpt-3.k8s.zencloud.se" "$MANAGER_NODE" )
 
 # Support functions #
 # ####### ######### #
@@ -19,32 +21,33 @@ function all {
 
 # Run a command on compute node(s).
 function compute {
-  # TODO: Allow dynamic number of compute nodes.
-  single zc-compute-1 "$1"
-  single zc-compute-2 "$1"
-  single zc-compute-3 "$1"
+  for node in "${COMPUTE_NODES[@]}"
+  do
+    single "$node" "$1"
+  done
 }
 
 # Run a command on manager node(s).
 function manager {
   # TODO: Allow dynamic number of manager nodes.
-  LATEST_MANAGER_RESULT=`single zc-manager "$1"`
+  LATEST_MANAGER_RESULT=`single "$MANAGER_NODE" "$1"`
   echo -e $"$LATEST_MANAGER_RESULT"
 }
 
 # Run a command on a single node.
 function single {
-  echo "~# ssh $1" "$2"
-  ssh -oStrictHostKeyChecking=no $1 "$2"
+  echo "~# ssh root@$1" "$2"
+  ssh -oStrictHostKeyChecking=no "root@$1" "$2"
 }
 
 # Node setup #
 # #### ##### #
 
-single zc-manager "echo 'mngr-1.k8s.zencloud.se' > /etc/hostname"
-single zc-compute-1 "echo 'cmpt-1.k8s.zencloud.se' > /etc/hostname"
-single zc-compute-2 "echo 'cmpt-2.k8s.zencloud.se' > /etc/hostname"
-single zc-compute-3 "echo 'cmpt-3.k8s.zencloud.se' > /etc/hostname"
+single "$MANAGER_NODE" "echo '$MANAGER_NODE' > /etc/hostname"
+for node in "${COMPUTE_NODES[@]}"
+do
+  single "$node" "echo '$node' > /etc/hostname"
+done
 
 # User setup #
 # #### ##### #
