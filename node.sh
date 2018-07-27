@@ -38,6 +38,14 @@ function single {
   ssh -oStrictHostKeyChecking=no $1 "$2"
 }
 
+# Node setup #
+# #### ##### #
+
+single zc-manager "echo 'mngr-1.k8s.zencloud.se' > /etc/hostname"
+single zc-compute-1 "echo 'cmpt-1.k8s.zencloud.se' > /etc/hostname"
+single zc-compute-2 "echo 'cmpt-2.k8s.zencloud.se' > /etc/hostname"
+single zc-compute-3 "echo 'cmpt-3.k8s.zencloud.se' > /etc/hostname"
+
 # User setup #
 # #### ##### #
 
