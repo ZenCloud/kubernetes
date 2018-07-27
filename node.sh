@@ -95,10 +95,8 @@ KUBE_CONFIG=`ssh root@$MANAGER_NODE cat /root/.kube/config`
 echo -e $"$KUBE_CONFIG" > ~/.kube/config
 
 # Enable Flannel network
-echo && echo "Apply Flannel network"
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+# echo && echo "Apply Flannel network"
+# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
 
-# List nodes to see that everything is working
-echo && echo "Done! Wait 20 s and list nodes"
-sleep 20
-kubectl get nodes
+echo && echo "Apply Calico"
+kubectl apply -f https://docs.projectcalico.org/v2.6/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
