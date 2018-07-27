@@ -3,7 +3,7 @@
 # Configuration #
 # ############# #
 
-USER="ilix"
+NORMAL_USER="ilix"
 MANAGER_NODE="mngr-1.k8s.zencloud.se"
 COMPUTE_NODES=( "cmpt-1.k8s.zencloud.se" "cmpt-2.k8s.zencloud.se" "cmpt-3.k8s.zencloud.se" )
 ALL_NODES=( "cmpt-1.k8s.zencloud.se" "cmpt-2.k8s.zencloud.se" "cmpt-3.k8s.zencloud.se" "$MANAGER_NODE" )
@@ -52,14 +52,14 @@ done
 # User setup #
 # #### ##### #
 
-all "useradd $USER"
-all "mkdir /home/$USER/.ssh"
-all "cp /root/.ssh/authorized_keys /home/$USER/.ssh/authorized_keys"
-all "chown -R $USER:$USER /home/$USER/.ssh"
+all "useradd $NORMAL_USER"
+all "mkdir /home/$NORMAL_USER/.ssh"
+all "cp /root/.ssh/authorized_keys /home/$NORMAL_USER/.ssh/authorized_keys"
+all "chown -R $NORMAL_USER:$NORMAL_USER /home/$NORMAL_USER/.ssh"
 
 all "groupadd docker"
-all "gpasswd -a $USER wheel"
-all "gpasswd -a $USER docker"
+all "gpasswd -a $NORMAL_USER wheel"
+all "gpasswd -a $NORMAL_USER docker"
 
 # Repo + packages setup #
 # #### # ######## ##### #
@@ -89,10 +89,10 @@ manager "kubeadm init --pod-network-cidr=10.244.0.0/16"
 manager "mkdir -p /root/.kube"
 manager "cp /etc/kubernetes/admin.conf /root/.kube/config"
 
-# Copy admin.conf for $USER
-manager "mkdir -p /home/$USER/.kube"
-manager "cp /etc/kubernetes/admin.conf /home/$USER/.kube/config"
-manager "chown $USER:$USER /home/$USER/.kube/config"
+# Copy admin.conf for $NORMAL_USER
+manager "mkdir -p /home/$NORMAL_USER/.kube"
+manager "cp /etc/kubernetes/admin.conf /home/$NORMAL_USER/.kube/config"
+manager "chown $NORMAL_USER:$NORMAL_USER /home/$NORMAL_USER/.kube/config"
 
 # Join compute nodes to cluster
 manager "kubeadm token create --print-join-command"
