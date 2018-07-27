@@ -43,8 +43,7 @@ function single {
 # Node setup #
 # #### ##### #
 
-single "$MANAGER_NODE" "echo '$MANAGER_NODE' > /etc/hostname"
-for node in "${COMPUTE_NODES[@]}"
+for node in "${ALL_NODES[@]}"
 do
   single "$node" "echo '$node' > /etc/hostname"
 done
