@@ -46,3 +46,11 @@ kubectl apply -f traefik-rbac.yml
 kubectl apply -f traefik-ds.yml
 kubectl apply -f traefik-ui.yml
 ```
+
+## Step 4
+
+Deploy other stuff.
+
+```bash
+kubectl apply -f nginx-test.yml
+```
