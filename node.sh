@@ -5,10 +5,9 @@
 
 NORMAL_USER="ilix"
 MANAGER_NODE="mngr-1.k8s.zencloud.se"
-COMPUTE_NODES=( "cmpt-1.k8s.zencloud.se" )
-# COMPUTE_NODES=( "cmpt-1.k8s.zencloud.se" "cmpt-2.k8s.zencloud.se" "cmpt-3.k8s.zencloud.se" )
+COMPUTE_NODES=( "cmpt-1.k8s.zencloud.se" "cmpt-2.k8s.zencloud.se" "cmpt-3.k8s.zencloud.se" )
 
-ALL_NODES=$COMPUTE_NODES
+ALL_NODES=("${COMPUTE_NODES[@]}")
 ALL_NODES+=("$MANAGER_NODE")
 
 # Support functions #
@@ -28,6 +27,10 @@ do
   echo
   echo "Setup and prepare $node"
   echo
+
+  # Remove $node entry from known_hosts
+  # I reinstalled the hosts several times while developing this
+  sed -i "/$node/d" ~/.ssh/known_hosts
 
   # Hostname
   command "$node" "hostname $node"
@@ -95,8 +98,8 @@ KUBE_CONFIG=`ssh root@$MANAGER_NODE cat /root/.kube/config`
 echo -e $"$KUBE_CONFIG" > ~/.kube/config
 
 # Enable Flannel network
-# echo && echo "Apply Flannel network"
-# kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
+echo && echo "Apply Flannel network"
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/v0.9.1/Documentation/kube-flannel.yml
 
-echo && echo "Apply Calico"
-kubectl apply -f https://docs.projectcalico.org/v2.6/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
+# echo && echo "Apply Calico"
+# kubectl apply -f https://docs.projectcalico.org/v2.6/getting-started/kubernetes/installation/hosted/kubeadm/1.6/calico.yaml
