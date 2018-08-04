@@ -10,11 +10,13 @@ Minimal steps to setup a working kubernetes cluster.
 
 ## Step 1
 
-- Setup a DNS name pointing to each node.
+Setup a DNS name pointing to each node. It could be something like manager.zencloud.se and compute.zencloud.se if you have two nodes.
+
+To keep things simple you could start by simply editing your local /etc/hosts and then copying these settings to each node in the cluster.
 
 ## Step 2
 
-Edit `node.sh` and review the **Configuration** section.
+Edit `cluster-setup.sh` and review the **Configuration** section.
 
 ```bash
 vim node.sh
