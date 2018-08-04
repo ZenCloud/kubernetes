@@ -19,13 +19,13 @@ To keep things simple you could start by simply editing your local /etc/hosts an
 Edit `cluster-setup.sh` and review the **Configuration** section.
 
 ```bash
-vim node.sh
+vim cluster-setup.sh
 ```
 
-Run `node.sh` to setup the kubernetes cluster.
+Run `cluster-setup.sh` to setup the kubernetes cluster.
 
 ```bash
-sh node.sh
+sh cluster-setup.sh
 ```
 
 Once the script is finished you will se the output of `kubectl get nodes`.
