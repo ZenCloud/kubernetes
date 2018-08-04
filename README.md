@@ -1,10 +1,12 @@
 # kubernetes
 
+Minimal steps to setup a working kubernetes cluster.
+
 ## Pre-conditions
 
-- You need two or more nodes setup with CentOS 7.x.
-- You need ssh access as root.
-- Read and understand each step in the script(s) here before you run them!
+- Two or more nodes setup with CentOS 7.x.
+- SSH access as root to these nodes.
+- Having read and understood each step in the included script(s) here before you run them.
 
 ## Step 1
 
