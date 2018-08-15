@@ -4,8 +4,8 @@
 # ############# #
 
 NORMAL_USER="ilix"
-MANAGER_NODE="mngr-1.k8s.zencloud.se"
-COMPUTE_NODES=( "cmpt-1.k8s.zencloud.se" "cmpt-2.k8s.zencloud.se" "cmpt-3.k8s.zencloud.se" )
+MANAGER_NODE="node-1.kubernetes.lab.ilix.se"
+COMPUTE_NODES=( "node-2.kubernetes.lab.ilix.se" "node-3.kubernetes.lab.ilix.se" "node-4.kubernetes.lab.ilix.se" )
 
 ALL_NODES=("${COMPUTE_NODES[@]}")
 ALL_NODES+=("$MANAGER_NODE")
