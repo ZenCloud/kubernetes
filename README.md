@@ -43,7 +43,7 @@ containership-zc-04   Ready     <none>    15s       v1.11.1
 
 ## Step 3
 
-Deploy Traefik.
+Optional - deploy Traefik.
 
 ```bash
 kubectl apply -f traefik-rbac.yml
@@ -53,7 +53,7 @@ kubectl apply -f traefik-ui.yml
 
 ## Step 4
 
-Deploy other stuff.
+Optional - deploy nginx as a test to verify Traefik proxy.
 
 ```bash
 kubectl apply -f nginx-test.yml
