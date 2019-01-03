@@ -56,8 +56,3 @@ spec:
     - protocol: TCP
       port: 8080
       name: admin
-  externalIPs:
-  - 37.139.31.66
-  - 37.139.30.60
-  - 146.185.129.96
-  - 146.185.155.211
