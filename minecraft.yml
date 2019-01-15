@@ -4,6 +4,19 @@ kind: Namespace
 metadata:
   name: minecraft
 ---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: minecraft-claim
+  namespace: minecraft
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: "do-block-storage"
+---
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -39,6 +52,13 @@ spec:
             - ALL
             add:
             - NET_BIND_SERVICE
+        volumeMounts:
+        - name: minecraft
+          mountPath: /minecraft
+      volumes:
+        - name: minecraft
+          persistentVolumeClaim:
+            claimName: minecraft-claim
 ---
 kind: Service
 apiVersion: v1
