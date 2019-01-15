@@ -1,43 +1,47 @@
 ---
-apiVersion: v1
 kind: Namespace
+apiVersion: v1
 metadata:
   name: minecraft
 ---
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: minecraft-claim
+  name: minecraft-server-claim
   namespace: minecraft
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 100Gi
   storageClassName: "do-block-storage"
 ---
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: minecraft-server-controller
-  namespace: minecraft
+# kind: ServiceAccount
+# apiVersion: v1
+# metadata:
+#   name: minecraft-server-controller
+#   namespace: minecraft
 ---
-kind: DaemonSet
-apiVersion: extensions/v1beta1
+kind: ReplicaSet
+apiVersion: apps/v1
 metadata:
   name: minecraft-server-controller
   namespace: minecraft
   labels:
-    k8s-app: minecraft
+    application: minecraft
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      application: minecraft
   template:
     metadata:
       labels:
-        k8s-app: minecraft
         name: minecraft-server
+        application: minecraft
     spec:
-      serviceAccountName: minecraft-server-controller
+      # serviceAccountName: minecraft-server-controller
       terminationGracePeriodSeconds: 60
       containers:
       - image: ilix/minecraft
@@ -46,29 +50,29 @@ spec:
         - name: server
           containerPort: 25565
           hostPort: 25565
-        securityContext:
-          capabilities:
-            drop:
-            - ALL
-            add:
-            - NET_BIND_SERVICE
+        # securityContext:
+        #   capabilities:
+        #     drop:
+        #     - ALL
+        #     add:
+        #     - NET_BIND_SERVICE
         volumeMounts:
         - name: minecraft
-          mountPath: /minecraft
+          mountPath: /mc
       volumes:
         - name: minecraft
           persistentVolumeClaim:
-            claimName: minecraft-claim
+            claimName: minecraft-server-claim
 ---
-kind: Service
-apiVersion: v1
-metadata:
-  name: minecraft-server-service
-  namespace: minecraft
-spec:
-  selector:
-    k8s-app: minecraft
-  ports:
-    - protocol: TCP
-      port: 25565
-      name: server
+# kind: Service
+# apiVersion: v1
+# metadata:
+#   name: minecraft-server-service
+#   namespace: minecraft
+# spec:
+#   selector:
+#     application: minecraft
+#   ports:
+#     - protocol: TCP
+#       port: 25565
+#       name: server
