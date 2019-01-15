@@ -7,7 +7,7 @@ metadata:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: minecraft-server-claim
+  name: server-claim
   namespace: minecraft
 spec:
   accessModes:
@@ -15,7 +15,7 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 100Gi
+      storage: 5Gi
   storageClassName: "do-block-storage"
 ---
 # kind: ServiceAccount
