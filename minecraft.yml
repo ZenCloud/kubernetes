@@ -11,6 +11,7 @@ metadata:
   namespace: minecraft
 spec:
   accessModes:
+    - ReadOnlyMany
     - ReadWriteOnce
   resources:
     requests:
